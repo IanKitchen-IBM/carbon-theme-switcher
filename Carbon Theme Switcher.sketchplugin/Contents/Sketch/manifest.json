@@ -1,0 +1,41 @@
+{
+  "author" : "Ian Kitchen",
+  "commands" : [
+    {
+      "script" : "script.js",
+      "name" : "White",
+      "handler" : "changeToWhite",
+      "identifier" : "changeToWhite",
+      "isRoot" : false,
+    },
+    {
+      "script" : "script.js",
+      "name" : "Gray 100",
+      "handler" : "changeToGray100",
+      "identifier" : "changeToGray100",
+      "isRoot" : false,
+    },
+    {
+      "script" : "script.js",
+      "name" : "Gray 90",
+      "handler" : "changeToGray90",
+      "identifier" : "changeToGray90",
+      "isRoot" : false,
+    },
+    {
+      "script" : "script.js",
+      "name" : "Gray 10",
+      "handler" : "changeToGray10",
+      "identifier" : "changeToGray10",
+      "isRoot" : false,
+    }
+  ],
+  "menu" : {
+    "items" : ["changeToWhite","changeToGray10","changeToGray90","changeToGray100"]
+  },
+  "identifier" : "com.example.sketch.77a27f67-7231-4029-9202-50715d9be0e3",
+  "version" : "1.0",
+  "description" : "Quickly switch between different themes",
+  "authorEmail" : "ian.kitchen@uk.ibm.com",
+  "name" : "Carbon Theme Switcher"
+}
