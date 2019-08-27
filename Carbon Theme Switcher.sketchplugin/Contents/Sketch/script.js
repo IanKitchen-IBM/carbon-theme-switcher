@@ -69,6 +69,10 @@ function updateThemes(layers, newTheme)
         }
       }
     }
+    else if(layer.type == 'Group'){
+      console.log("Found a group")
+        updateThemes(layer.layers, newTheme))
+    }
   }
 
   if(symbols == 0){
