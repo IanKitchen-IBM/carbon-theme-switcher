@@ -34,7 +34,7 @@
     "items" : ["changeToWhite","changeToGray10","changeToGray90","changeToGray100"]
   },
   "identifier" : "com.example.sketch.77a27f67-7231-4029-9202-50715d9be0e3",
-  "version" : "1.0",
+  "version" : "1.1",
   "description" : "Quickly switch between different themes",
   "authorEmail" : "ian.kitchen@uk.ibm.com",
   "name" : "Carbon Theme Switcher"
