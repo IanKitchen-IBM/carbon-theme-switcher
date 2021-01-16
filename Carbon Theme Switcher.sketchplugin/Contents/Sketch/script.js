@@ -36,12 +36,9 @@ function changeToTarget(target)
 {
   let targetThemeName = "Carbon Design System ("+target+" theme)"
   
-  let targetThemeReferences = findCarbonThemeReferences(targetThemeName)
+  let targetThemeReferences = findCarbonSymbolReferences(targetThemeName)
   let targetTextStyleReferences = findCarbonTextStyleReferences(targetThemeName)
   let targetLayerStyleReferences = findCarbonLayerStyleReferences(targetThemeName)
-
-  if(targetTextStyleReferences)
-    console.log("found the text style references")
 
   //if theme is available, update all symbols
   if(targetThemeReferences)
@@ -51,12 +48,13 @@ function changeToTarget(target)
 }
 
 //get the references for the target theme
-function findCarbonThemeReferences(targetFullName)
+function findCarbonSymbolReferences(targetFullName)
 {
   for(let i=0; i<libraries.length; i++){
     let library = libraries[i]
 
     if(library.name == targetFullName){
+      //console.log("found the symbol references")
       return(library.getImportableSymbolReferencesForDocument(document))
     }
   }
@@ -68,7 +66,7 @@ function findCarbonTextStyleReferences(targetFullName)
     let library = libraries[i]
 
     if(library.name == targetFullName){
-      console.log("found the reference")
+      //console.log("found the text references")
       return(library.getImportableTextStyleReferencesForDocument(document))
     }
   } 
@@ -80,7 +78,7 @@ function findCarbonLayerStyleReferences(targetFullName)
     let library = libraries[i]
 
     if(library.name == targetFullName){
-      console.log("found the reference")
+      //console.log("found the layer references")
       return(library.getImportableLayerStyleReferencesForDocument(document))
     }
   } 
@@ -94,16 +92,21 @@ function updateThemes(layers, newTheme, newTextStyles, newLayerStyles)
     let layer = layers[i]
 
     //console.log(layer.type)
+    //console.log(layer.name)
     //console.log(layer.sharedStyle.getLibrary().name)
 
     if (layer.type == 'SymbolInstance')
     {
-      let newSymbolReference = findSymbolReferenceByName(layer.master.name,newTheme)
+      var newSymbolReference = null
+      
+      if(layer.master)
+        newSymbolReference = findSymbolReferenceByName(layer.master.name,newTheme)
 
       if (newSymbolReference)
       {
         var newSymbolMaster = newSymbolReference.import()
-        if (newSymbolMaster) {
+        if (newSymbolMaster) 
+        {
           layer.master = newSymbolMaster
           symbolCount = symbolCount + 1
         }
@@ -111,28 +114,38 @@ function updateThemes(layers, newTheme, newTextStyles, newLayerStyles)
     }
     else if(layer.type == 'Text')
     {
-      let newTextStyle = findStyleByName(layer.sharedStyle.name, newTextStyles)
+      var newTextStyle = null
+      
+      if(layer.sharedStyle)
+        newTextStyle = findStyleByName(layer.sharedStyle.name, newTextStyles)
 
       if(newTextStyle)
       {
         var newTextStyleMaster = newTextStyle.import()
         if (newTextStyleMaster)
+        {
           layer.sharedStyle = newTextStyleMaster
           layer.style.syncWithSharedStyle(layer.sharedStyle)
           textCount = textCount + 1
+        }
       }
     }
     else if(layer.type == 'ShapePath')
     {
-      let newLayerStyle = findStyleByName(layer.sharedStyle.name, newLayerStyles)
+      var newLayerStyle = null
+
+      if(layer.sharedStyle)
+        newLayerStyle = findStyleByName(layer.sharedStyle.name, newLayerStyles)
 
       if(newLayerStyle)
       {
         var newLayerStyleMaster = newLayerStyle.import()
         if (newLayerStyleMaster)
+        {
           layer.sharedStyle = newLayerStyleMaster
           layer.style.syncWithSharedStyle(layer.sharedStyle)
           layerCount = layerCount + 1
+        }
       }
     }
     else if(layer.type == 'Group'){
@@ -144,7 +157,7 @@ function updateThemes(layers, newTheme, newTextStyles, newLayerStyles)
     sketch.UI.message("No Carbon layers were selected")
   }
   else{
-    sketch.UI.message(`Switched: symbols: ${symbolCount}, shapes: ${layerCount}, text: ${textCount}`)
+    sketch.UI.message(`Switched: Symbol layers: ${symbolCount}, Shape layers: ${layerCount}, Text layers: ${textCount}`)
   }
 }
 
