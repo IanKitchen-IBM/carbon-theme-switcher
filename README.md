@@ -15,6 +15,6 @@ Select the layers you want to change then use the flyout menu to select the them
 
 # Release History
 
-1.2 - Improved feedback, fix for issue with non carbon layers
-1.1 - Support for text and shape layers
-1.0 - Initial Release
+* 1.2 - Improved feedback, fix for issue with non carbon layers
+* 1.1 - Support for text and shape layers
+* 1.0 - Initial Release
