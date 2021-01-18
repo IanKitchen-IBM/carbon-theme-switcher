@@ -1,6 +1,6 @@
 # carbon-theme-switcher
 
-A Sketch plugin for quickly changing carbon design system theme for symbol, text and shape layers.
+A Sketch plugin for quickly changing the Carbon Design System theme of symbol, text and shape layers.
 
 
 # Installation
